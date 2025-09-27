@@ -208,3 +208,17 @@ rust-project.json
 **/.angular
 **/.VSCodeCounter
 **/build
+
+# JetBrains IDEs
+**/.idea/
+*.iml
+out/
+cmake-build-*/
+
+# CMake build directories
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# MacOS system files
+.DS_Store
