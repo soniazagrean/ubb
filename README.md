@@ -21,9 +21,9 @@
 
 ### Semester 3
 
-- [algebra](.sem3/algebra)
-- [asc](.sem3/asc)
-- [complex analysis](./sem3/complex%analysis)
-- [database](.sem3/database)
-- [differential equations](.sem3/differential%equations)
-- [map](.sem3/map)
+- [algebra](./sem3/algebra)
+- [asc](./sem3/asc)
+- [complex analysis](./sem3/complex%20analysis)
+- [database](./sem3/database)
+- [differential equations](./sem3/differential%20equations)
+- [map](./sem3/map)
