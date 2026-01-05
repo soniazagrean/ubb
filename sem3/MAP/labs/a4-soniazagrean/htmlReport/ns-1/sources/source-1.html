@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">&lt;empty package name&gt;</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (3/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    67.6%
+  </span>
+  <span class="absValue">
+    (25/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;
+&nbsp;import domain.Order;
+&nbsp;import domain.Product;
+&nbsp;import repository.*;
+&nbsp;import service.OrderService;
+&nbsp;import service.ProductService;
+&nbsp;import ui.ConsoleUI;
+&nbsp;import utils.IdGenerator;
+&nbsp;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.Path;
+&nbsp;import java.util.Properties;
+&nbsp;
+<b class="nc">&nbsp;public class Main {</b>
+&nbsp;    public static void main(String[] args) {
+&nbsp;
+<b class="fc">&nbsp;        Properties props = new Properties();</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            Path cfg = Path.of(&quot;src/settings.properties&quot;);</b>
+&nbsp;
+<b class="pc">&nbsp;            if (Files.exists(cfg)) {</b>
+<b class="fc">&nbsp;                try (var in = Files.newInputStream(cfg)) {</b>
+<b class="fc">&nbsp;                    props.load(in);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            System.out.println(&quot;Nu am putut citi settings.properties: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        String repoType = props.getProperty(&quot;Repository&quot;, &quot;memory&quot;).toLowerCase();</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Repository type: &quot; + repoType);</b>
+&nbsp;
+<b class="fc">&nbsp;        Path productsBin = Path.of(props.getProperty(&quot;ProductsBin&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/product.bin&quot;));</b>
+<b class="fc">&nbsp;        Path ordersBin   = Path.of(props.getProperty(&quot;OrdersBin&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/order.bin&quot;));</b>
+&nbsp;
+<b class="fc">&nbsp;        Path ordersJson = Path.of(props.getProperty(&quot;OrdersJson&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/order.json&quot;));</b>
+<b class="fc">&nbsp;        Path productsJson = Path.of(props.getProperty(&quot;ProductsJson&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/product.json&quot;));</b>
+&nbsp;
+<b class="fc">&nbsp;        Path ordersXml = Path.of(props.getProperty(&quot;OrdersXml&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/order.xml&quot;));</b>
+<b class="fc">&nbsp;        Path productsXml = Path.of(props.getProperty(&quot;ProductsXml&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/product.xml&quot;));</b>
+&nbsp;
+<b class="fc">&nbsp;        Path productsTxt = Path.of(props.getProperty(&quot;ProductsTxt&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/product.txt&quot;));</b>
+<b class="fc">&nbsp;        Path ordersTxt   = Path.of(props.getProperty(&quot;OrdersTxt&quot;, &quot;/Users/zagreansonia/Desktop/sem3/MAP/labs/a4-soniazagrean/data/order.txt&quot;));</b>
+&nbsp;
+<b class="pc">&nbsp;        IRepository&lt;Product&gt; productRepo = switch (repoType) {</b>
+<b class="nc">&nbsp;            case &quot;memory&quot; -&gt; new InMemoryRepository&lt;&gt;();</b>
+<b class="nc">&nbsp;            case &quot;binary&quot; -&gt; new RepositoryBinaryFile&lt;&gt;(productsBin);</b>
+<b class="nc">&nbsp;            case &quot;text&quot;   -&gt; new RepositoryTextFile&lt;&gt;(productsTxt, new ProductFactory());</b>
+<b class="nc">&nbsp;            case &quot;json&quot;   -&gt; new RepositoryJsonFile&lt;&gt;(productsJson, Product.class);</b>
+<b class="fc">&nbsp;            case &quot;xml&quot;    -&gt; new RepositoryXmlFile&lt;&gt;(productsXml, Product.class);</b>
+<b class="nc">&nbsp;            default       -&gt; throw new IllegalArgumentException(&quot;Tip repo necunoscut: &quot; + repoType);</b>
+&nbsp;        };
+&nbsp;
+<b class="pc">&nbsp;        IRepository&lt;Order&gt; orderRepo = switch (repoType) {</b>
+<b class="nc">&nbsp;            case &quot;memory&quot; -&gt; new InMemoryRepository&lt;&gt;();</b>
+<b class="nc">&nbsp;            case &quot;binary&quot; -&gt; new RepositoryBinaryFile&lt;&gt;(ordersBin);</b>
+<b class="nc">&nbsp;            case &quot;text&quot;   -&gt; new RepositoryTextFile&lt;&gt;(ordersTxt, new OrderFactory(productRepo));</b>
+<b class="nc">&nbsp;            case &quot;json&quot;   -&gt; new RepositoryJsonFile&lt;&gt;(ordersJson, Order.class);</b>
+<b class="fc">&nbsp;            case &quot;xml&quot;    -&gt; new RepositoryXmlFile&lt;&gt;(ordersXml, Order.class);</b>
+<b class="nc">&nbsp;            default       -&gt; throw new IllegalArgumentException(&quot;Tip repo necunoscut: &quot; + repoType);</b>
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        IdGenerator productIdGen = new IdGenerator(&quot;last_product_id.txt&quot;);</b>
+<b class="fc">&nbsp;        IdGenerator orderIdGen   = new IdGenerator(&quot;last_order_id.txt&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        ProductService productService = new ProductService(productRepo);</b>
+<b class="fc">&nbsp;        OrderService orderService     = new OrderService(orderRepo);</b>
+&nbsp;
+<b class="fc">&nbsp;        ConsoleUI ui = new ConsoleUI(productService, orderService, productIdGen, orderIdGen);</b>
+<b class="fc">&nbsp;        ui.start();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-07 17:58</div>
+</div>
+</body>
+</html>

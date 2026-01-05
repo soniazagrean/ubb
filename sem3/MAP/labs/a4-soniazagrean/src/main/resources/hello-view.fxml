@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="ui.gui.HelloController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+        <Tab text="Products">
+            <SplitPane dividerPositions="0.6">
+                <VBox spacing="5">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <HBox spacing="5">
+                        <TextField fx:id="categoryFilterField" promptText="Filter by Category..." HBox.hgrow="ALWAYS"/>
+                        <Button text="Search" onAction="#onFilterProducts"/>
+                        <Button text="Reset" onAction="#onResetProducts"/>
+                    </HBox>
+                    <TableView fx:id="productTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colProdId" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="colProdCat" text="Category" prefWidth="100"/>
+                            <TableColumn fx:id="colProdName" text="Name" prefWidth="150"/>
+                            <TableColumn fx:id="colProdPrice" text="Price" prefWidth="80"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <VBox spacing="10" alignment="TOP_CENTER" style="-fx-background-color: #f4f4f4;">
+                    <padding><Insets top="15" right="10" bottom="10" left="10"/></padding>
+                    <Label text="Product Management" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                    <Separator/>
+
+                    <GridPane vgap="10" hgap="5">
+                        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtProdName" promptText="Product Name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Category:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtProdCat" promptText="Category" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Price:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtProdPrice" promptText="Price" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    </GridPane>
+
+                    <Separator/>
+
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Add New" onAction="#onAddProduct" style="-fx-base: #b6ffb6;" prefWidth="80"/>
+                        <Button text="Update" onAction="#onUpdateProduct" style="-fx-base: #b6d0ff;" prefWidth="80"/>
+                    </HBox>
+                    <Button text="Delete Selected" onAction="#onDeleteProduct" maxWidth="Infinity" style="-fx-base: #ffb6b6;"/>
+                    <Button text="Clear Form" onAction="#onClearProductForm" maxWidth="Infinity"/>
+                </VBox>
+            </SplitPane>
+        </Tab>
+
+        <Tab text="Orders">
+            <SplitPane dividerPositions="0.6">
+                <VBox spacing="5">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <Label text="All Orders" style="-fx-font-weight: bold"/>
+                    <TableView fx:id="orderTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colOrderId" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="colOrderDate" text="Date" prefWidth="120"/>
+                            <TableColumn fx:id="colOrderItems" text="Items" prefWidth="60"/>
+                            <TableColumn fx:id="colOrderTotal" text="Total ($)" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <VBox spacing="10" alignment="TOP_CENTER" style="-fx-background-color: #f4f4f4;">
+                    <padding><Insets top="15" right="10" bottom="10" left="10"/></padding>
+                    <Label text="Order Management" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                    <Separator/>
+
+                    <Label text="Order Date:"/>
+                    <DatePicker fx:id="datePickerOrder" promptText="Select Date" maxWidth="Infinity"/>
+
+                    <Label text="Select Products (Hold Ctrl to select multiple):" wrapText="true"/>
+                    <ListView fx:id="productSelectionList" VBox.vgrow="ALWAYS"/>
+
+                    <Separator/>
+
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Create Order" onAction="#onAddOrder" style="-fx-base: #b6ffb6;" prefWidth="100"/>
+                        <Button text="Update Order" onAction="#onUpdateOrder" style="-fx-base: #b6d0ff;" prefWidth="100"/>
+                    </HBox>
+                    <Button text="Delete Selected" onAction="#onDeleteOrder" maxWidth="Infinity" style="-fx-base: #ffb6b6;"/>
+                    <Button text="Clear Selection" onAction="#onClearOrderForm" maxWidth="Infinity"/>
+                </VBox>
+            </SplitPane>
+        </Tab>
+
+        <Tab text="Reports">
+            <HBox spacing="10">
+                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="Orders by Category" style="-fx-font-weight: bold"/>
+                    <ListView fx:id="reportCategoryList" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="Monthly Performance" style="-fx-font-weight: bold"/>
+                    <ListView fx:id="reportMonthlyList" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="Revenue by Product" style="-fx-font-weight: bold"/>
+                    <ListView fx:id="reportRevenueList" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </HBox>
+        </Tab>
+
+    </TabPane>
+</VBox>

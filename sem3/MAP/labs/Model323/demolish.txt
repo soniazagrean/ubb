@@ -1,0 +1,2 @@
+HOUSE | Year: 1869 | Age: 156 | Historical: false | Restore: false | Demolish: true
+HOUSE | Year: 2000 | Age: 25 | Historical: false | Restore: false | Demolish: true

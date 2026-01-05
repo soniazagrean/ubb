@@ -18,3 +18,12 @@
 - [calculus 2](./sem2/calculus%202)
 - [data structures](./sem2/data%20structures)
 - [oop](./sem2/oop)
+
+### Semester 3
+
+- [algebra](.sem3/algebra)
+- [asc](.sem3/asc)
+- [complex analysis](./sem3/complex%analysis)
+- [database](.sem3/database)
+- [differential equations](.sem3/differential%equations)
+- [map](.sem3/map)

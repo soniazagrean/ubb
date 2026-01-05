@@ -1,0 +1,16 @@
+[ {
+  "id" : 101,
+  "category" : "Electronics",
+  "name" : "Laptop",
+  "price" : 1200
+}, {
+  "id" : 102,
+  "category" : "Electronics",
+  "name" : "ok",
+  "price" : 800
+}, {
+  "id" : 103,
+  "category" : "Accessories",
+  "name" : "Headphones",
+  "price" : 150
+} ]

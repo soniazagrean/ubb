@@ -1,0 +1,6 @@
+101;phone;iPhone 14;999
+102;laptop;MacBook Pro;1999
+103;tablet;iPad Air;599
+104;headphones;AirPods Pro;249
+105;smartwatch;Apple Watch;399
+106;ok;aaa;230

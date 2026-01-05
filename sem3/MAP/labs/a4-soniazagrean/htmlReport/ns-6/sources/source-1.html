@@ -1,0 +1,313 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ConsoleUI</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ui</a>
+</div>
+
+<h1>Coverage Summary for Class: ConsoleUI (ui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConsoleUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (3/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4.8%
+  </span>
+  <span class="absValue">
+    (1/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    21.6%
+  </span>
+  <span class="absValue">
+    (19/88)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ui;
+&nbsp;
+&nbsp;import domain.Order;
+&nbsp;import domain.Product;
+&nbsp;import service.OrderService;
+&nbsp;import service.ProductService;
+&nbsp;import utils.IdGenerator;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;public class ConsoleUI {
+&nbsp;
+&nbsp;    private final ProductService productService;
+&nbsp;    private final OrderService orderService;
+&nbsp;    private final IdGenerator productIdGen;
+&nbsp;    private final IdGenerator orderIdGen;
+&nbsp;
+<b class="fc">&nbsp;    private final Scanner sc = new Scanner(System.in);</b>
+&nbsp;
+&nbsp;    public ConsoleUI(ProductService productService,
+&nbsp;                     OrderService orderService,
+&nbsp;                     IdGenerator productIdGen,
+<b class="fc">&nbsp;                     IdGenerator orderIdGen) {</b>
+&nbsp;
+<b class="fc">&nbsp;        this.productService = productService;</b>
+<b class="fc">&nbsp;        this.orderService = orderService;</b>
+<b class="fc">&nbsp;        this.productIdGen = productIdGen;</b>
+<b class="fc">&nbsp;        this.orderIdGen = orderIdGen;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void start() {
+&nbsp;        while (true) {
+<b class="fc">&nbsp;            printMenu();</b>
+<b class="fc">&nbsp;            System.out.print(&quot;Choose option: &quot;);</b>
+<b class="fc">&nbsp;            String option = sc.nextLine();</b>
+&nbsp;
+&nbsp;            try {
+<b class="pc">&nbsp;                switch (option) {</b>
+<b class="nc">&nbsp;                    case &quot;1&quot; -&gt; listProducts();</b>
+<b class="nc">&nbsp;                    case &quot;2&quot; -&gt; addProduct();</b>
+<b class="nc">&nbsp;                    case &quot;3&quot; -&gt; deleteProduct();</b>
+<b class="nc">&nbsp;                    case &quot;4&quot; -&gt; listOrders();</b>
+<b class="nc">&nbsp;                    case &quot;5&quot; -&gt; createOrder();</b>
+<b class="nc">&nbsp;                    case &quot;6&quot; -&gt; updateProduct();</b>
+&nbsp;                    case &quot;0&quot; -&gt; {
+<b class="fc">&nbsp;                        System.out.println(&quot;Exiting... Bye!&quot;);</b>
+&nbsp;                        return;
+&nbsp;                    }
+<b class="nc">&nbsp;                    default -&gt; System.out.println(&quot;Invalid option.&quot;);</b>
+&nbsp;                }
+&nbsp;            } catch (RuntimeException ex) {
+<b class="nc">&nbsp;                System.out.println(&quot;Error: &quot; + ex.getMessage());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // -------------------------
+&nbsp;    // MENU
+&nbsp;    // -------------------------
+&nbsp;    private void printMenu() {
+<b class="fc">&nbsp;        System.out.println(&quot;\nElectronics Store Menu&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;1. List all products&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;2. Add product&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;3. Delete product&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;4. List all orders&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;5. Create order&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;6. Update product&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;0. Exit&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void listProducts() {
+<b class="nc">&nbsp;        var products = productService.getAllProducts();</b>
+<b class="nc">&nbsp;        if (products.isEmpty())</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No products available.&quot;);</b>
+&nbsp;        else
+<b class="nc">&nbsp;            products.forEach(System.out::println);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void addProduct() {
+<b class="nc">&nbsp;        System.out.print(&quot;Category: &quot;);</b>
+<b class="nc">&nbsp;        String cat = sc.nextLine();</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.print(&quot;Name: &quot;);</b>
+<b class="nc">&nbsp;        String name = sc.nextLine();</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.print(&quot;Price: &quot;);</b>
+&nbsp;        int price;
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            price = Integer.parseInt(sc.nextLine());</b>
+&nbsp;        } catch (NumberFormatException e) {
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid price. Product not added.&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (name.isBlank()) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Product name cannot be empty.&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int nextId = productIdGen.peekNext();</b>
+<b class="nc">&nbsp;        Product p = new Product(nextId, cat, name, price);</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            productService.addProduct(p);</b>
+<b class="nc">&nbsp;            productIdGen.consumeNext();</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Product added: &quot; + p);</b>
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            System.out.println(&quot;Could not add product: &quot; + ex.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void deleteProduct() {
+<b class="nc">&nbsp;        System.out.print(&quot;Enter product ID to delete: &quot;);</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            int id = Integer.parseInt(sc.nextLine());</b>
+<b class="nc">&nbsp;            productService.deleteProduct(id);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Product deleted.&quot;);</b>
+&nbsp;        } catch (NumberFormatException e) {
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid ID.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void updateProduct() {
+<b class="nc">&nbsp;        System.out.print(&quot;Enter product ID to update: &quot;);</b>
+&nbsp;        int id;
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            id = Integer.parseInt(sc.nextLine());</b>
+&nbsp;        } catch (NumberFormatException e) {
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid ID.&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Product existing = productService.getProduct(id);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.print(&quot;New category (leave empty to keep &#39;&quot; + existing.getCategory() + &quot;&#39;): &quot;);</b>
+<b class="nc">&nbsp;        String cat = sc.nextLine();</b>
+<b class="nc">&nbsp;        if (!cat.isBlank())</b>
+<b class="nc">&nbsp;            existing.setCategory(cat);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.print(&quot;New name (leave empty to keep &#39;&quot; + existing.getName() + &quot;&#39;): &quot;);</b>
+<b class="nc">&nbsp;        String name = sc.nextLine();</b>
+<b class="nc">&nbsp;        if (!name.isBlank())</b>
+<b class="nc">&nbsp;            existing.setName(name);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.print(&quot;New price (leave empty to keep &#39;&quot; + existing.getPrice() + &quot;&#39;): &quot;);</b>
+<b class="nc">&nbsp;        String priceInput = sc.nextLine();</b>
+<b class="nc">&nbsp;        if (!priceInput.isBlank()) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                existing.setPrice(Integer.parseInt(priceInput));</b>
+&nbsp;            } catch (NumberFormatException e) {
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid price, old price kept.&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        productService.updateProduct(existing);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Product updated: &quot; + existing);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void listOrders() {
+<b class="nc">&nbsp;        var orders = orderService.getAllOrders();</b>
+<b class="nc">&nbsp;        if (orders.isEmpty())</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No orders available.&quot;);</b>
+&nbsp;        else
+<b class="nc">&nbsp;            orders.forEach(System.out::println);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void createOrder() {
+<b class="nc">&nbsp;        System.out.println(&quot;Enter product IDs separated by commas:&quot;);</b>
+<b class="nc">&nbsp;        String[] parts = sc.nextLine().split(&quot;,&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        int nextId = orderIdGen.peekNext();</b>
+<b class="nc">&nbsp;        Order newOrder = new Order(nextId);</b>
+&nbsp;
+<b class="nc">&nbsp;        for (String p : parts) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                int pid = Integer.parseInt(p.trim());</b>
+<b class="nc">&nbsp;                Product pr = productService.getProduct(pid);</b>
+<b class="nc">&nbsp;                newOrder.addProduct(pr);</b>
+&nbsp;            } catch (Exception e) {
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid product ID: &quot; + p);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        newOrder.setDate(LocalDate.now());</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            orderService.addOrder(newOrder);</b>
+<b class="nc">&nbsp;            orderIdGen.consumeNext();</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Order created: &quot; + newOrder);</b>
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            System.out.println(&quot;Failed to create order: &quot; + ex.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-07 17:58</div>
+</div>
+</body>
+</html>

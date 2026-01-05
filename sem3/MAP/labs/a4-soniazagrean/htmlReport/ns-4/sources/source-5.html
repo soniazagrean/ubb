@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RepositoryJsonFile</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">repository</a>
+</div>
+
+<h1>Coverage Summary for Class: RepositoryJsonFile (repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RepositoryJsonFile</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package repository;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
+&nbsp;import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+&nbsp;import domain.Entity;
+&nbsp;import exceptions.RepositoryException;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.Path;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class RepositoryJsonFile&lt;T extends Entity&gt; extends InMemoryRepository&lt;T&gt; {
+&nbsp;    private final Path path;
+&nbsp;    private final Class&lt;T&gt; type;
+<b class="nc">&nbsp;    private final ObjectMapper mapper = new ObjectMapper();</b>
+&nbsp;
+<b class="nc">&nbsp;    public RepositoryJsonFile(Path path, Class&lt;T&gt; type) {</b>
+<b class="nc">&nbsp;        this.path = path;</b>
+<b class="nc">&nbsp;        this.type = type;</b>
+<b class="nc">&nbsp;        this.mapper.registerModule(new JavaTimeModule());</b>
+<b class="nc">&nbsp;        load();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void load() {
+<b class="nc">&nbsp;        if (!Files.exists(path)) return;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            List&lt;T&gt; list = mapper.readValue(</b>
+<b class="nc">&nbsp;                    Files.readAllBytes(path),</b>
+<b class="nc">&nbsp;                    mapper.getTypeFactory().constructCollectionType(List.class, type)</b>
+&nbsp;            );
+<b class="nc">&nbsp;            for (T e : list) super.addElement(e);</b>
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            throw new RepositoryException(&quot;Error reading from: &quot; + path, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    private void persist() {
+&nbsp;        try {
+<b class="nc">&nbsp;            if (path.getParent() != null) Files.createDirectories(path.getParent());</b>
+<b class="nc">&nbsp;            mapper.writerWithDefaultPrettyPrinter().writeValue(path.toFile(), super.getAll());</b>
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            throw new RepositoryException(&quot;Error writing to: &quot; + path, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addElement(T element) {
+<b class="nc">&nbsp;        super.addElement(element);</b>
+<b class="nc">&nbsp;        persist();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void updateElement(T newElement) {
+<b class="nc">&nbsp;        super.updateElement(newElement);</b>
+<b class="nc">&nbsp;        persist();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteElement(Integer id) {
+<b class="nc">&nbsp;        super.deleteElement(id);</b>
+<b class="nc">&nbsp;        persist();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteElement(T element) {
+<b class="nc">&nbsp;        super.deleteElement(element);</b>
+<b class="nc">&nbsp;        persist();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void clear() {
+<b class="nc">&nbsp;        super.clear();</b>
+<b class="nc">&nbsp;        persist();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-07 17:58</div>
+</div>
+</body>
+</html>
