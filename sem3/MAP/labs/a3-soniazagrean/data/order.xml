@@ -1,0 +1,32 @@
+<List>
+    <Order>
+        <id>1</id>
+        <products>
+            <Product>
+                <id>101</id>
+                <category>Electronics</category>
+                <name>Laptop</name>
+                <price>1200</price>
+            </Product>
+            <Product>
+                <id>103</id>
+                <category>Accessories</category>
+                <name>Headphones</name>
+                <price>150</price>
+            </Product>
+        </products>
+        <date>2025-11-25</date>
+    </Order>
+    <Order>
+        <id>2</id>
+        <products>
+            <Product>
+                <id>102</id>
+                <category>Electronics</category>
+                <name>Smartphone</name>
+                <price>800</price>
+            </Product>
+        </products>
+        <date>2025-11-25</date>
+    </Order>
+</List>

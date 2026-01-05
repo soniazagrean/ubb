@@ -1,0 +1,20 @@
+<ArrayList>
+  <item>
+    <id>108</id>
+    <products>
+      <products>
+        <id>101</id>
+        <category>Electronics</category>
+        <name>Laptop</name>
+        <price>1200</price>
+      </products>
+      <products>
+        <id>103</id>
+        <category>Accessories</category>
+        <name>Headphones</name>
+        <price>150</price>
+      </products>
+    </products>
+    <date>2025-11-11</date>
+  </item>
+</ArrayList>

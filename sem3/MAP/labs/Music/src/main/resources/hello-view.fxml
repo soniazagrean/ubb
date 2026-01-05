@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox alignment="TOP_CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.gui.HelloController">
+    <padding><Insets bottom="10" left="10" right="10" top="10"/></padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Genre:"/>
+        <ComboBox fx:id="genreComboBox" prefWidth="150.0"/> <Button text="Reset" onAction="#onReset"/> </HBox>
+
+    <TableView fx:id="musicTable" VBox.vgrow="ALWAYS"> <columns>
+        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+        <TableColumn fx:id="colBand" text="Band" prefWidth="150"/>
+        <TableColumn fx:id="colTitle" text="Title" prefWidth="200"/>
+        <TableColumn fx:id="colGenre" text="Genre" prefWidth="100"/>
+        <TableColumn fx:id="colTime" text="Time" prefWidth="70"/>
+    </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="playlistNameField" promptText="Name of the playlist"/> <Button text="Generate" onAction="#onGeneratePlaylist"/> </HBox>
+</VBox>

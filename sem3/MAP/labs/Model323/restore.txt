@@ -1,0 +1,2 @@
+HOUSE | Year: 1900 | Age: 125 | Historical: true | Restore: true | Demolish: false
+BLOCK | Year: 1960 | Age: 65 | Apts: 190/200 | Restore: true | Demolish: false

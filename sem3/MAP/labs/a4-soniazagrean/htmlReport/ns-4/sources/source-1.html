@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > InMemoryRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">repository</a>
+</div>
+
+<h1>Coverage Summary for Class: InMemoryRepository (repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InMemoryRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    27.3%
+  </span>
+  <span class="absValue">
+    (3/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (4/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    26.9%
+  </span>
+  <span class="absValue">
+    (7/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package repository;
+&nbsp;
+&nbsp;
+&nbsp;import domain.Entity;
+&nbsp;import exceptions.DuplicateIdException;
+&nbsp;import exceptions.ObjectNotFoundException;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+<b class="fc">&nbsp;public class InMemoryRepository&lt;T extends Entity&gt; implements IRepository&lt;T&gt; {</b>
+<b class="fc">&nbsp;    private final ArrayList&lt;T&gt; elements = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addElement(T element) {
+<b class="pc">&nbsp;        if (ifExists(element.getId()))</b>
+<b class="nc">&nbsp;            throw new DuplicateIdException(element.getId());</b>
+<b class="fc">&nbsp;        elements.add(element);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public boolean ifExists(int id) {
+<b class="fc">&nbsp;        for (T e : elements)</b>
+<b class="pc">&nbsp;            if (e.getId() == id)</b>
+<b class="nc">&nbsp;                return true;</b>
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public void deleteElement(Integer id) {
+<b class="nc">&nbsp;        boolean removed = elements.removeIf(e -&gt; e.getId() == id);</b>
+<b class="nc">&nbsp;        if (!removed)</b>
+<b class="nc">&nbsp;            throw new ObjectNotFoundException(id);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public ArrayList&lt;T&gt; getAll() {
+<b class="nc">&nbsp;        return new ArrayList&lt;&gt;(elements);</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public T findById(int id) {
+<b class="nc">&nbsp;        for (T e : elements)</b>
+<b class="nc">&nbsp;            if (e.getId() == id)</b>
+<b class="nc">&nbsp;                return e;</b>
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public void updateElement(T newElement) {
+<b class="nc">&nbsp;        for (int i = 0; i &lt; elements.size(); i++) {</b>
+<b class="nc">&nbsp;            if (elements.get(i).getId() == newElement.getId()) {</b>
+<b class="nc">&nbsp;                elements.set(i, newElement);</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        throw new ObjectNotFoundException(newElement.getId());</b>
+&nbsp;    }
+&nbsp;    @Override
+&nbsp;    public int size() {
+<b class="nc">&nbsp;        return elements.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteElement(T element) {
+<b class="nc">&nbsp;        boolean ok = elements.remove(element);</b>
+<b class="nc">&nbsp;        if (!ok) throw new ObjectNotFoundException(element.getId());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void clear() {
+<b class="nc">&nbsp;        elements.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Repository{&quot; + elements + &#39;}&#39;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-12-07 17:58</div>
+</div>
+</body>
+</html>

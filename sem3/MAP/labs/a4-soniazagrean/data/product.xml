@@ -1,0 +1,20 @@
+<List>
+    <Product>
+        <id>101</id>
+        <category>Electronics</category>
+        <name>Laptop</name>
+        <price>1200</price>
+    </Product>
+    <Product>
+        <id>102</id>
+        <category>Electronics</category>
+        <name>Smartphone</name>
+        <price>800</price>
+    </Product>
+    <Product>
+        <id>103</id>
+        <category>Accessories</category>
+        <name>Headphones</name>
+        <price>150</price>
+    </Product>
+</List>
