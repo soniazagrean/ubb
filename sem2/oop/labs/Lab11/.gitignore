@@ -1,0 +1,12 @@
+target/
+build/
+dist/
+node_modules/
+
+.idea/
+.vscode/
+.sublime-workspace/
+
+.cmake-build-debug/
+
+.DS_Store

@@ -1,0 +1,9 @@
+#ifndef TESTS_H
+#define TESTS_H
+void test_ProdusDulce();
+void test_ProdusSarat();
+void test_Repo_Dulce();
+void test_Repo_Sarat();
+void test_Repo_Mix();
+void test_Service();
+#endif //TESTS_H

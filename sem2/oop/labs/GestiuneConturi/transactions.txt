@@ -1,0 +1,6 @@
+15 100 in pizza
+27 30 out apple
+12 60 in cookies
+12 28 out cookies
+4 8 out bread
+25 240 in clothes
